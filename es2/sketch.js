@@ -45,11 +45,21 @@ function draw() {
 function generaColori() {
   coloriFasce = [];
 
+  const tonoInizio = random(toniPrimari);
+  const tonoFine = random(toniSecondari);
+
+  const satInizio = random(intervalloSaturazione[0], intervalloSaturazione[1]);
+  const satFine = random(intervalloSaturazione[0], intervalloSaturazione[1]);
+
+  const lumInizio = random(intervalloLuminosita[0], intervalloLuminosita[1]);
+  const lumFine = random(intervalloLuminosita[0], intervalloLuminosita[1]);
+
   for (let i = 0; i < numeroFasce; i++) {
-    const toniDisponibili = i % 2 === 0 ? toniPrimari : toniSecondari;
-    const tono = random(toniDisponibili);
-    const saturazione = random(intervalloSaturazione[0], intervalloSaturazione[1]);
-    const luminosita = random(intervalloLuminosita[0], intervalloLuminosita[1]);
+    const t = i / (numeroFasce - 1);
+
+    const tono = lerp(tonoInizio, tonoFine, t);
+    const saturazione = lerp(satInizio, satFine, t);
+    const luminosita = lerp(lumInizio, lumFine, t);
 
     coloriFasce.push(color(tono, saturazione, luminosita));
   }
